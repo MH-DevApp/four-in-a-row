@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        font-family: "Poppins", sans-serif;
+    }
+}
+
+@layer components {
+    .brand {
+        @apply font-bold text-sm;
+        text-transform: capitalize;
+    }
+
+    .brand:first-letter {
+        @apply text-2xl text-red-600 italic;
+        font-family: "Protest Revolution", sans-serif;
+        margin-right: 0.25rem;
+    }
+}
