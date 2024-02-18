@@ -1,5 +1,6 @@
 // import { HomeComponent } from "../components/HomeComponent.ts";
 import { GameBoardComponent } from "../components/GameBoardComponent.ts";
+import { HomeComponent } from "../components/HomeComponent.ts";
 
 export type ColorToken = "R" | "Y" | " ";
 export type Player = "Player 1" | "Player 2";
@@ -31,18 +32,32 @@ export class GameBoard {
     window.removeEventListener("beforeunload", this.refreshListener);
   }
 
-  init() {
-    this.reset();
+  turn() {
+    this.currentPlayer =
+      this.currentPlayer === "Player 1" ? "Player 2" : "Player 1";
+    this.main.innerHTML = "";
     this.main.append(GameBoardComponent());
   }
 
-  emptyGameBoard() {
-    return new Array(6).fill(new Array(7).fill(" "));
+  init() {
+    this.reset();
+    this.main.append(HomeComponent());
+  }
+
+  emptyGameBoard(): ColorToken[][] {
+    return Array.from({ length: 6 }, () => Array(7).fill(" "));
   }
 
   start() {
     this.reset();
     this.main.append(GameBoardComponent());
+    // window.addEventListener("beforeunload", this.refreshListener);
+  }
+
+  addTokenInGrid(rowIndex: number, colIndex: number) {
+    this.gridBoard[rowIndex][colIndex] =
+      this.currentPlayer === "Player 1" ? "R" : "Y";
+    this.turn();
   }
 }
 

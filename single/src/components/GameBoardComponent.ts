@@ -63,6 +63,17 @@ const GameBoard = () => {
     }
   }
 
+  container +=
+    "<div id='grid-selected' class='absolute grid grid-cols-7 w-full h-full'>" +
+    "<div data-col='0' class='h-full w-full border rounded-l-2xl p-2'></div>" +
+    "<div data-col='1' class='h-full w-full border p-2'></div>" +
+    "<div data-col='2' class='h-full w-full border p-2'></div>" +
+    "<div data-col='3' class='h-full w-full border p-2'></div>" +
+    "<div data-col='4' class='h-full w-full border p-2'></div>" +
+    "<div data-col='5' class='h-full w-full border p-2'></div>" +
+    "<div data-col='6' class='h-full w-full border p-2 rounded-r-2xl'></div>" +
+    "</div>";
+
   container += "</div>";
 
   return container;
@@ -76,8 +87,9 @@ export const GameBoardComponent = () => {
   container.innerHTML += "<hr class='w-full my-6'>";
   container.innerHTML += Dashboard();
 
-  const cells: NodeListOf<HTMLDivElement> =
-    container.querySelectorAll("[data-col]");
+  const cells: NodeListOf<HTMLDivElement> = container.querySelectorAll(
+    "#grid-selected > [data-col]",
+  );
 
   const checkEmptyInColumn = (col: number) => {
     for (let i = 0; i < GameBoardInstance.gridBoard.length; i++) {
@@ -93,17 +105,23 @@ export const GameBoardComponent = () => {
     const colIndex = parseInt(cell.dataset.col!);
     let cellEmpty: HTMLElement | null = null;
 
-    cell.addEventListener("mouseenter", () => {
+    cell.addEventListener("pointerover", (event) => {
       const rowIndexCellEmpty = checkEmptyInColumn(colIndex);
       if (rowIndexCellEmpty !== -1) {
-        cellEmpty = document.querySelector(
-          `[data-row="${rowIndexCellEmpty}"][data-col="${colIndex}"]`,
-        )!;
-        cellEmpty.innerHTML = Token(
-          GameBoardInstance.currentPlayer === "Player 1" ? "R" : "Y",
-          true,
-        );
-        cell.classList.add("cursor-pointer");
+        if (cell.dataset.row === rowIndexCellEmpty.toString()) {
+          cellEmpty = cell;
+        } else {
+          cellEmpty = document.querySelector(
+            `[data-row="${rowIndexCellEmpty}"][data-col="${colIndex}"]`,
+          )!;
+        }
+        if (event.pointerType === "mouse") {
+          cellEmpty.innerHTML = Token(
+            GameBoardInstance.currentPlayer === "Player 1" ? "R" : "Y",
+            true,
+          );
+          cell.classList.add("cursor-pointer");
+        }
       } else {
         cell.classList.add("cursor-no-drop");
       }
@@ -112,6 +130,16 @@ export const GameBoardComponent = () => {
     cell.addEventListener("mouseleave", () => {
       if (cellEmpty !== null) {
         cellEmpty.innerHTML = Token(" ");
+      }
+    });
+
+    cell.addEventListener("pointerdown", (event) => {
+      if (cellEmpty) {
+        if (event.pointerType === "mouse") {
+          GameBoardInstance.addTokenInGrid(+cellEmpty.dataset.row!, colIndex);
+        } else {
+          GameBoardInstance.addTokenInGrid(+cellEmpty.dataset.row!, colIndex);
+        }
       }
     });
   });
