@@ -10,12 +10,12 @@
 
 @layer components {
     .brand {
-        @apply font-bold text-sm;
+        @apply font-bold text-xl;
         text-transform: capitalize;
     }
 
     .brand:first-letter {
-        @apply text-2xl text-red-600 italic;
+        @apply text-4xl text-red-600 italic;
         font-family: "Protest Revolution", sans-serif;
         margin-right: 0.25rem;
     }
