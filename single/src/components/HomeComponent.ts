@@ -2,13 +2,7 @@ import { GameBoardInstance } from "../gameboard/GameBoard.ts";
 
 export const HomeComponent = () => {
   const container = document.createElement("div");
-  container.classList.add(
-    "flex",
-    "flex-col",
-    "items-center",
-    "text-center",
-    "p-4",
-  );
+  container.className = "flex flex-col items-center text-center p-4";
 
   container.innerHTML +=
     "<h2 class='text-3xl font-bold underline underline-offset-4 my-6'>Welcome to the exciting world of \"4 in a row\"!</h2>";
