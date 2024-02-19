@@ -50,6 +50,7 @@ export class GameBoard {
 
   start() {
     this.reset();
+    this.currentPlayer = "Player 1";
     this.main.append(GameBoardComponent());
     // window.addEventListener("beforeunload", this.refreshListener);
   }
@@ -57,7 +58,140 @@ export class GameBoard {
   addTokenInGrid(rowIndex: number, colIndex: number) {
     this.gridBoard[rowIndex][colIndex] =
       this.currentPlayer === "Player 1" ? "R" : "Y";
+    const checkTokens = this.checkTokens(rowIndex, colIndex);
+    if (checkTokens.length) {
+      console.log(checkTokens);
+      this.score[this.currentPlayer]++;
+      return;
+    }
     this.turn();
+  }
+
+  private checkTokens(
+    rowIndex: number,
+    colIndex: number,
+  ): { row: number; col: number }[] {
+    let tokensPosition: { row: number; col: number }[] = [];
+    let count = 0;
+    let colorToken: ColorToken = this.currentPlayer === "Player 1" ? "R" : "Y";
+    let x = rowIndex;
+    let y = colIndex;
+
+    const reset = () => {
+      count = 0;
+      tokensPosition = [];
+      y = colIndex;
+      x = rowIndex;
+    };
+
+    // horizontal
+    while (count < 4 && y >= 0 && this.gridBoard[x][y] === colorToken) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      y--;
+    }
+
+    y = colIndex + 1;
+
+    while (count < 4 && y <= 6 && this.gridBoard[x][y] === colorToken) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      y++;
+    }
+
+    if (count === 4) {
+      return tokensPosition.sort((a, b) => a.col - b.col);
+    }
+
+    reset();
+
+    // vertical
+    while (
+      count < 4 &&
+      x >= 0 &&
+      rowIndex >= 3 &&
+      this.gridBoard[x][y] === colorToken
+    ) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      x--;
+    }
+
+    if (count === 4) {
+      return tokensPosition.sort((a, b) => a.row - b.row);
+    }
+
+    reset();
+
+    // diagonal top left to bottom right
+    while (
+      count < 4 &&
+      x >= 0 &&
+      y <= 6 &&
+      this.gridBoard[x][y] === colorToken
+    ) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      x--;
+      y++;
+    }
+
+    x = rowIndex + 1;
+    y = colIndex - 1;
+
+    while (
+      count < 4 &&
+      x <= 5 &&
+      y >= 0 &&
+      this.gridBoard[x][y] === colorToken
+    ) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      x++;
+      y--;
+    }
+
+    if (count === 4) {
+      return tokensPosition.sort((a, b) => a.row - b.row);
+    }
+
+    reset();
+
+    // diagonal top right to bottom left
+    while (
+      count < 4 &&
+      x >= 0 &&
+      y >= 0 &&
+      this.gridBoard[x][y] === colorToken
+    ) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      x--;
+      y--;
+    }
+
+    x = rowIndex + 1;
+    y = colIndex + 1;
+
+    while (
+      count < 4 &&
+      x <= 5 &&
+      y <= 6 &&
+      this.gridBoard[x][y] === colorToken
+    ) {
+      tokensPosition.push({ row: x, col: y });
+      count++;
+      x++;
+      y++;
+    }
+
+    if (count === 4) {
+      return tokensPosition.sort((a, b) => a.row - b.row);
+    }
+
+    reset();
+
+    return tokensPosition;
   }
 }
 

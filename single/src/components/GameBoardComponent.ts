@@ -59,6 +59,10 @@ const GameBoard = () => {
     for (let j = 0; j < gridBoard[i].length; j++) {
       let classColumn = "border-b-transparent";
       if (i > 0) classColumn = "border-b-2 border-blue-600";
+      if (i === 0 && j === 0) classColumn += " rounded-bl-2xl";
+      if (i === 0 && j === 6) classColumn += " rounded-br-2xl";
+      if (i === 5 && j === 0) classColumn += " rounded-tl-2xl";
+      if (i === 5 && j === 6) classColumn += " rounded-tr-2xl";
       container += `<div data-row="${i}" data-col="${j}" class="${classColumn} p-2">${Token(gridBoard[i][j])}</div>`;
     }
   }
