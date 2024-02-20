@@ -1,6 +1,10 @@
 // import { HomeComponent } from "../components/HomeComponent.ts";
 import { GameBoardComponent } from "../components/GameBoardComponent.ts";
 import { HomeComponent } from "../components/HomeComponent.ts";
+import {
+  LandingStartComponent,
+  LandingTurnComponent,
+} from "../components/LandingComponents.ts";
 
 export type ColorToken = "R" | "Y" | " ";
 export type Player = "Player 1" | "Player 2";
@@ -37,10 +41,12 @@ export class GameBoard {
       this.currentPlayer === "Player 1" ? "Player 2" : "Player 1";
     this.main.innerHTML = "";
     this.main.append(GameBoardComponent());
+    this.main.append(LandingTurnComponent(this.currentPlayer));
   }
 
   init() {
     this.reset();
+    this.score = { "Player 1": 0, "Player 2": 0 };
     this.main.append(HomeComponent());
   }
 
@@ -52,7 +58,8 @@ export class GameBoard {
     this.reset();
     this.currentPlayer = "Player 1";
     this.main.append(GameBoardComponent());
-    // window.addEventListener("beforeunload", this.refreshListener);
+    this.main.append(LandingStartComponent());
+    window.addEventListener("beforeunload", this.refreshListener);
   }
 
   addTokenInGrid(rowIndex: number, colIndex: number) {
