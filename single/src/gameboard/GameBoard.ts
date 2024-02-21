@@ -3,7 +3,7 @@ import { GameBoardComponent } from "../components/GameBoardComponent.ts";
 import {
   LandingStartComponent,
   LandingTurnComponent,
-  LandingWinnerComponent,
+  LandingEndGameComponent,
 } from "../components/LandingComponents.ts";
 
 export type ColorToken = "R" | "Y" | " ";
@@ -70,10 +70,24 @@ export class GameBoard {
       this.main.innerHTML = "";
       this.main.append(GameBoardComponent());
       this.score[this.currentPlayer]++;
-      this.main.append(LandingWinnerComponent(this.currentPlayer, checkTokens));
+      this.main.append(
+        LandingEndGameComponent(this.currentPlayer, checkTokens),
+      );
       return;
     }
+
+    if (this.isDraw()) {
+      this.main.innerHTML = "";
+      this.main.append(GameBoardComponent());
+      this.main.append(LandingEndGameComponent("DRAW", checkTokens));
+      return;
+    }
+
     this.turn();
+  }
+
+  private isDraw(): boolean {
+    return this.gridBoard.every((row) => row.every((cell) => cell !== " "));
   }
 
   private checkTokens(

@@ -116,8 +116,8 @@ export const LandingStartComponent = () => {
   return container;
 };
 
-export const LandingWinnerComponent = (
-  winner: Player,
+export const LandingEndGameComponent = (
+  winner: Player | "DRAW",
   positionsToken: { row: number; col: number }[],
 ) => {
   const container = LandingContainerComponent();
@@ -125,7 +125,7 @@ export const LandingWinnerComponent = (
   let index = 0;
 
   const animation = () => {
-    if (index < positionsToken.length) {
+    if (index < positionsToken.length && winner !== "DRAW") {
       const { row, col } = positionsToken[index];
       const token = document.querySelector(
         `[data-row='${row}'][data-col='${col}']`,
@@ -138,7 +138,13 @@ export const LandingWinnerComponent = (
         animation();
       }, 350);
     } else {
-      createConfetti(container);
+      let timingAnimation = 0;
+      let message = winner;
+      if (winner !== "DRAW") {
+        createConfetti(container);
+        timingAnimation = 1500;
+        message += " wins!";
+      }
       setTimeout(() => {
         container.classList.add(
           "backdrop-blur-sm",
@@ -147,12 +153,12 @@ export const LandingWinnerComponent = (
           "duration-1000",
         );
         container.append(
-          AlertComponent(`${winner} wins!`, [
+          AlertComponent(message, [
             { content: "Back to home", cb: () => GameBoardInstance.init() },
             { content: "Play Again !", cb: () => GameBoardInstance.start() },
           ]),
         );
-      }, 1500);
+      }, timingAnimation);
     }
   };
 
