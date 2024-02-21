@@ -3,7 +3,7 @@ import { ColorToken, GameBoardInstance } from "../gameboard/GameBoard.ts";
 const Dashboard = () => {
   const gameBoard = GameBoardInstance;
   const classCurrentPlayer =
-    "flex items-center gap-1 p-2 bg-green-200 rounded-xl border-2 border-green-300";
+    "flex items-center gap-1 p-2 bg-green-200 rounded-xl border-2 border-green-300 dark:bg-green-300 dark:border-green-400 dark:text-slate-800 font-extrabold";
   const classOtherPlayer =
     "flex items-center gap-1 p-2 rounded-xl border-2 border-transparent";
 
@@ -19,8 +19,8 @@ const Dashboard = () => {
       : classOtherPlayer) +
     "'>" +
     "<span class='w-5 h-5 bg-red-500 block rounded-full border-2'></span>" +
-    "<span class='underline underline-offset-2'>Player 1</span>:" +
-    "<span class='font-medium text-lg'>" +
+    "<span class=''>Player 1</span>:" +
+    "<span class='font-medium text-lg p-2'>" +
     gameBoard.score["Player 1"] +
     "</span>" +
     "</p>" +
@@ -30,8 +30,8 @@ const Dashboard = () => {
       : classOtherPlayer) +
     "'>" +
     "<span class='w-5 h-5 bg-yellow-500 block rounded-full border-2'></span>" +
-    "<span class='underline underline-offset-2'>Player 2</span>:" +
-    "<span class='font-medium text-lg'>" +
+    "<span class=''>Player 2</span>:" +
+    "<span class='font-medium text-lg p-2'>" +
     gameBoard.score["Player 2"] +
     "</span>" +
     "</p>" +
@@ -41,9 +41,9 @@ const Dashboard = () => {
 
 const Token = (colorToken: ColorToken, animate: boolean = false) => {
   if (colorToken === "R") {
-    return `<div class='h-16 w-16 bg-red-500 border-8 border-double border-red-700 rounded-full ${animate ? "animate-pulse" : ""}'></div>`;
+    return `<div class='h-16 w-16 bg-red-500 border-8 border-double border-red-700 dark:bg-red-400 rounded-full ${animate ? "animate-pulse" : ""}'></div>`;
   } else if (colorToken === "Y") {
-    return `<div class='h-16 w-16 bg-yellow-300 border-8 border-double border-yellow-600 rounded-full ${animate ? "animate-pulse" : ""}'></div>`;
+    return `<div class='h-16 w-16 bg-yellow-300 border-8 border-double border-yellow-600 dark:bg-yellow-300 rounded-full ${animate ? "animate-pulse" : ""}'></div>`;
   }
 
   return `<div class='h-16 w-16 bg-slate-50 border-2 border-gray-700 rounded-full'></div>`;
@@ -53,12 +53,13 @@ const GameBoard = () => {
   const gridBoard = GameBoardInstance.gridBoard;
 
   let container =
-    "<div class='grid relative grid-cols-7 grid-rows-6 border border-blue-900 bg-blue-700 rounded-2xl'>";
+    "<div class='grid relative grid-cols-7 grid-rows-6 border border-blue-900 bg-blue-700 rounded-2xl dark:bg-blue-500'>";
 
   for (let i = gridBoard.length - 1; i >= 0; i--) {
     for (let j = 0; j < gridBoard[i].length; j++) {
       let classColumn = "border-b-transparent";
-      if (i > 0) classColumn = "border-b-2 border-blue-600";
+      if (i > 0)
+        classColumn = "border-b-2 border-blue-600 dark:border-blue-400";
       if (i === 0 && j === 0) classColumn += " rounded-bl-2xl";
       if (i === 0 && j === 6) classColumn += " rounded-br-2xl";
       if (i === 5 && j === 0) classColumn += " rounded-tl-2xl";

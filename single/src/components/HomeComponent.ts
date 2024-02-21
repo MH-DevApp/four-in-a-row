@@ -41,7 +41,7 @@ export const HomeComponent = () => {
 
   const buttonStart = document.createElement("button");
   buttonStart.className =
-    "bg-red-600 text-blue-100 mt-8 px-8 py-4 w-1/2 mb-6 rounded-full hover:bg-yellow-600 active:bg-yellow-700 transition-colors";
+    "bg-red-600 text-blue-100 mt-8 px-8 py-4 w-1/2 mb-6 rounded-full hover:bg-yellow-600 active:bg-yellow-700 transition-colors dark:bg-yellow-600 dark:text-slate-100 dark:hover:bg-red-600 dark:active:bg-red-700";
   buttonStart.innerText = "Start Game";
 
   buttonStart.addEventListener("click", () => {

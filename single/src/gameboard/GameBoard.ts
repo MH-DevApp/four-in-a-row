@@ -45,6 +45,7 @@ export class GameBoard {
   }
 
   init() {
+    document.querySelector("body")!.classList.remove("overflow-hidden");
     this.reset();
     this.score = { "Player 1": 0, "Player 2": 0 };
     this.main.append(HomeComponent());
@@ -55,6 +56,7 @@ export class GameBoard {
   }
 
   start() {
+    document.querySelector("body")!.classList.remove("overflow-hidden");
     this.reset();
     this.currentPlayer = "Player 1";
     this.main.append(GameBoardComponent());

@@ -53,7 +53,7 @@ const createConfetti = (container: HTMLDivElement) => {
 export const LandingContainerComponent = () => {
   const container = document.createElement("div");
   container.className =
-    "flex items-center justify-center absolute top-0 left-0 min-h-full w-full backdrop-blur-sm backdrop-grayscale";
+    "flex items-center justify-center absolute top-0 left-0 h-full w-full backdrop-blur-sm backdrop-grayscale";
   return container;
 };
 
@@ -66,7 +66,7 @@ export const AlertComponent = (
 ) => {
   const container = document.createElement("div");
   container.className =
-    "w-2/3 px-12 py-24 flex flex-col justify-center items-center shadow-lg border bg-slate-50 rounded-3xl text-4xl font-semibold";
+    "w-2/3 px-12 py-24 flex flex-col justify-center items-center shadow-lg border bg-slate-50 rounded-3xl text-4xl font-semibold dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700";
 
   container.innerHTML = message;
 
@@ -75,7 +75,7 @@ export const AlertComponent = (
     buttons.className = "flex gap-4 mt-12";
     actions.forEach((action) => {
       const button = document.createElement("button");
-      button.className = `bg-red-600 hover:bg-yellow-600 active:bg-yellow-700 text-slate-50 px-4 py-2 text-sm rounded-full transition-colors`;
+      button.className = `bg-red-600 hover:bg-yellow-600 active:bg-yellow-700 text-slate-50 px-4 py-2 text-sm rounded-full transition-colors dark:bg-yellow-600 dark:text-slate-100 dark:hover:bg-red-600 dark:active:bg-red-700`;
       button.innerText = action.content;
       button.addEventListener("click", action.cb);
       buttons.append(button);
@@ -146,6 +146,7 @@ export const LandingEndGameComponent = (
         message += " wins!";
       }
       setTimeout(() => {
+        document.querySelector("body")!.classList.add("overflow-hidden");
         container.classList.add(
           "backdrop-blur-sm",
           "backdrop-grayscale",
@@ -169,10 +170,13 @@ export const LandingEndGameComponent = (
 
 export const LandingTurnComponent = (player: Player) => {
   const container = LandingContainerComponent();
-  const color = player === "Player 1" ? "red" : "yellow";
+  const color =
+    player === "Player 1"
+      ? { bg: "bg-red-500", border: "border-red-700" }
+      : { bg: "bg-yellow-300", border: "border-yellow-600" };
 
   const content = `<div class="flex justify-center items-center gap-x-4">
-                    <span class="w-16 h-16 rounded-full border-8 border-double bg-${color}-500 border-${color}-600"></span>
+                    <span class="w-16 h-16 rounded-full border-8 border-double ${color.bg} ${color.border}"></span>
                     ${player}
                   </div>`;
 
