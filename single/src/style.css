@@ -10,12 +10,12 @@
 
 @layer components {
     .brand {
-        @apply font-bold text-xl;
+        @apply font-bold md:text-xl text-lg;
         text-transform: capitalize;
     }
 
     .brand:first-letter {
-        @apply text-4xl text-red-600 italic;
+        @apply text-3xl md:text-4xl text-red-600 italic;
         font-family: "Protest Revolution", sans-serif;
         margin-right: 0.25rem;
     }
@@ -25,7 +25,7 @@
             top: -10%;
         }
         100% {
-            top: 110%;
+            top: 105%;
         }
     }
 

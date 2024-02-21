@@ -66,7 +66,7 @@ export const AlertComponent = (
 ) => {
   const container = document.createElement("div");
   container.className =
-    "w-2/3 px-12 py-24 flex flex-col justify-center items-center shadow-lg border bg-slate-50 rounded-3xl text-4xl font-semibold dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700";
+    "mx-1 md:mx-0 w-full md:w-2/3 px-6 py-12 md:px-12 md:py-24 flex flex-col justify-center items-center shadow-lg border bg-slate-50 rounded-3xl text-2xl md:text-4xl font-semibold dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700";
 
   container.innerHTML = message;
 
@@ -176,7 +176,7 @@ export const LandingTurnComponent = (player: Player) => {
       : { bg: "bg-yellow-300", border: "border-yellow-600" };
 
   const content = `<div class="flex justify-center items-center gap-x-4">
-                    <span class="w-16 h-16 rounded-full border-8 border-double ${color.bg} ${color.border}"></span>
+                    <span class="w-10 h-10 md:w-16 md:h-16 rounded-full border-8 border-double ${color.bg} ${color.border}"></span>
                     ${player}
                   </div>`;
 
