@@ -1,9 +1,9 @@
-// import { HomeComponent } from "../components/HomeComponent.ts";
-import { GameBoardComponent } from "../components/GameBoardComponent.ts";
 import { HomeComponent } from "../components/HomeComponent.ts";
+import { GameBoardComponent } from "../components/GameBoardComponent.ts";
 import {
   LandingStartComponent,
   LandingTurnComponent,
+  LandingWinnerComponent,
 } from "../components/LandingComponents.ts";
 
 export type ColorToken = "R" | "Y" | " ";
@@ -67,8 +67,10 @@ export class GameBoard {
       this.currentPlayer === "Player 1" ? "R" : "Y";
     const checkTokens = this.checkTokens(rowIndex, colIndex);
     if (checkTokens.length) {
-      console.log(checkTokens);
+      this.main.innerHTML = "";
+      this.main.append(GameBoardComponent());
       this.score[this.currentPlayer]++;
+      this.main.append(LandingWinnerComponent(this.currentPlayer, checkTokens));
       return;
     }
     this.turn();

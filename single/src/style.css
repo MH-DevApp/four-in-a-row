@@ -19,4 +19,17 @@
         font-family: "Protest Revolution", sans-serif;
         margin-right: 0.25rem;
     }
+
+    @keyframes confetti-fall {
+        0% {
+            top: -10%;
+        }
+        100% {
+            top: 100%;
+        }
+    }
+
+    .confetti {
+        animation: confetti-fall linear forwards;
+    }
 }

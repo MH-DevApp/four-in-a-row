@@ -1,4 +1,4 @@
 import "./style.css";
 import { GameBoardInstance } from "./gameboard/GameBoard.ts";
 
-GameBoardInstance.start();
+GameBoardInstance.init();

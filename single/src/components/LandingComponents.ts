@@ -1,4 +1,54 @@
-import { Player } from "../gameboard/GameBoard.ts";
+import { GameBoardInstance, Player } from "../gameboard/GameBoard.ts";
+
+const createConfetti = (container: HTMLDivElement) => {
+  const colors = {
+    bg: [
+      "bg-red-500",
+      "bg-yellow-500",
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-purple-500",
+    ],
+    shadow: [
+      "shadow-red-400",
+      "shadow-yellow-400",
+      "shadow-blue-400",
+      "shadow-green-400",
+      "shadow-purple-400",
+    ],
+  };
+
+  setTimeout(() => {
+    for (let i = 0; i < 5; i++) {
+      const confetti = document.createElement("div");
+      const randomBgColor =
+        colors.bg[Math.floor(Math.random() * colors.bg.length)];
+      const randomShadowColor =
+        colors.shadow[Math.floor(Math.random() * colors.shadow.length)];
+      const randomDuration = Math.random() * 3 + 3;
+
+      confetti.classList.add(
+        "confetti",
+        "absolute",
+        "w-2",
+        "h-2",
+        "rounded-full",
+        "-z-10",
+        "shadow-lg",
+        randomBgColor,
+        randomShadowColor,
+      );
+      confetti.style.left = Math.random() * 100 + "%";
+      confetti.style.animationDuration = randomDuration + "s";
+      container.append(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, randomDuration * 1000);
+    }
+    createConfetti(container);
+  }, 1000);
+};
 
 export const LandingContainerComponent = () => {
   const container = document.createElement("div");
@@ -66,6 +116,51 @@ export const LandingStartComponent = () => {
   return container;
 };
 
+export const LandingWinnerComponent = (
+  winner: Player,
+  positionsToken: { row: number; col: number }[],
+) => {
+  const container = LandingContainerComponent();
+  container.classList.remove("backdrop-blur-sm", "backdrop-grayscale");
+  let index = 0;
+
+  const animation = () => {
+    if (index < positionsToken.length) {
+      const { row, col } = positionsToken[index];
+      const token = document.querySelector(
+        `[data-row='${row}'][data-col='${col}']`,
+      )!;
+
+      token.classList.add("bg-green-500", "animate-pulse");
+
+      setTimeout(() => {
+        index++;
+        animation();
+      }, 350);
+    } else {
+      createConfetti(container);
+      setTimeout(() => {
+        container.classList.add(
+          "backdrop-blur-sm",
+          "backdrop-grayscale",
+          "transition-all",
+          "duration-1000",
+        );
+        container.append(
+          AlertComponent(`${winner} wins!`, [
+            { content: "Back to home", cb: () => GameBoardInstance.init() },
+            { content: "Play Again !", cb: () => GameBoardInstance.start() },
+          ]),
+        );
+      }, 1500);
+    }
+  };
+
+  animation();
+
+  return container;
+};
+
 export const LandingTurnComponent = (player: Player) => {
   const container = LandingContainerComponent();
   const color = player === "Player 1" ? "red" : "yellow";
@@ -78,6 +173,6 @@ export const LandingTurnComponent = (player: Player) => {
   container.append(AlertComponent(`${content}`));
   setTimeout(() => {
     container.remove();
-  }, 1000);
+  }, 700);
   return container;
 };
