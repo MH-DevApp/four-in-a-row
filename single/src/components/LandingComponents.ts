@@ -75,7 +75,7 @@ export const AlertComponent = (
     buttons.className = "flex gap-4 mt-12";
     actions.forEach((action) => {
       const button = document.createElement("button");
-      button.className = `bg-red-600 hover:bg-yellow-600 active:bg-yellow-700 text-slate-50 px-4 py-2 text-sm rounded-full transition-colors dark:bg-yellow-600 dark:text-slate-100 dark:hover:bg-red-600 dark:active:bg-red-700`;
+      button.className = `btn-custom`;
       button.innerText = action.content;
       button.addEventListener("click", action.cb);
       buttons.append(button);
@@ -184,5 +184,16 @@ export const LandingTurnComponent = (player: Player) => {
   setTimeout(() => {
     container.remove();
   }, 700);
+  return container;
+};
+
+export const LandingStopGameComponent = () => {
+  const container = LandingContainerComponent();
+  container.append(
+    AlertComponent("Are you sure you want to stop the game?", [
+      { content: "Yes", cb: () => GameBoardInstance.init() },
+      { content: "No", cb: () => container.remove() },
+    ]),
+  );
   return container;
 };

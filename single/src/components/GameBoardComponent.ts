@@ -1,4 +1,5 @@
 import { ColorToken, GameBoardInstance } from "../gameboard/GameBoard.ts";
+import { LandingStopGameComponent } from "./LandingComponents.ts";
 
 const Dashboard = () => {
   const gameBoard = GameBoardInstance;
@@ -32,7 +33,10 @@ const Dashboard = () => {
     gameBoard.score["Player 2"] +
     "</span>" +
     "</p>" +
-    "</div>"
+    "</div>" +
+    "<button class='btn-custom mt-8 md:text-base' data-btn-stop-game>" +
+    "Stop game" +
+    "</button>"
   );
 };
 
@@ -88,6 +92,13 @@ export const GameBoardComponent = () => {
   container.innerHTML += GameBoard();
   container.innerHTML += "<hr class='w-full my-6'>";
   container.innerHTML += Dashboard();
+
+  const btnStopGame = container.querySelector("button[data-btn-stop-game]");
+  if (btnStopGame) {
+    btnStopGame.addEventListener("click", () => {
+      container.append(LandingStopGameComponent());
+    });
+  }
 
   const cells: NodeListOf<HTMLDivElement> = container.querySelectorAll(
     "#grid-selected > [data-col]",
