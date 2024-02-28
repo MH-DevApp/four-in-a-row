@@ -11,6 +11,8 @@ export type Player = "Player 1" | "Player 2";
 
 export class GameBoard {
   private readonly main: HTMLElement;
+  private counterPlaying: number;
+  private maxCounterPlaying: number;
   gridBoard: ColorToken[][];
   currentPlayer: Player;
   score: { [key: string]: number };
@@ -24,6 +26,8 @@ export class GameBoard {
     this.currentPlayer = "Player 1";
     this.score = { "Player 1": 0, "Player 2": 0 };
     this.main = document.querySelector("main")!;
+    this.counterPlaying = 0;
+    this.maxCounterPlaying = 42;
   }
 
   private refreshListener(e: BeforeUnloadEvent) {
@@ -65,6 +69,7 @@ export class GameBoard {
   }
 
   addTokenInGrid(rowIndex: number, colIndex: number) {
+    this.counterPlaying++;
     this.gridBoard[rowIndex][colIndex] =
       this.currentPlayer === "Player 1" ? "R" : "Y";
     const checkTokens = this.checkTokens(rowIndex, colIndex);
@@ -78,7 +83,7 @@ export class GameBoard {
       return;
     }
 
-    if (this.isDraw()) {
+    if (this.counterPlaying === this.maxCounterPlaying) {
       this.main.innerHTML = "";
       this.main.append(GameBoardComponent());
       this.main.append(LandingEndGameComponent("DRAW", checkTokens));
@@ -86,10 +91,6 @@ export class GameBoard {
     }
 
     this.turn();
-  }
-
-  private isDraw(): boolean {
-    return this.gridBoard.every((row) => row.every((cell) => cell !== " "));
   }
 
   private checkTokens(
