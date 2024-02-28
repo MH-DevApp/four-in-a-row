@@ -37,6 +37,8 @@ export class GameBoard {
   reset() {
     this.main.innerHTML = "";
     this.gridBoard = this.emptyGameBoard();
+    this.counterPlaying = 0;
+    this.currentPlayer = "Player 1";
     window.removeEventListener("beforeunload", this.refreshListener);
   }
 
@@ -62,7 +64,6 @@ export class GameBoard {
   start() {
     document.querySelector("body")!.classList.remove("overflow-hidden");
     this.reset();
-    this.currentPlayer = "Player 1";
     this.main.append(GameBoardComponent());
     this.main.append(LandingStartComponent());
     window.addEventListener("beforeunload", this.refreshListener);
