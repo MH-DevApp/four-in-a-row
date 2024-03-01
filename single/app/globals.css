@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .brand {
+        @apply font-bold md:text-xl text-lg capitalize;
+    }
+
+    .brand span {
+        @apply text-3xl md:text-4xl text-red-600 italic mr-1;
+    }
+}

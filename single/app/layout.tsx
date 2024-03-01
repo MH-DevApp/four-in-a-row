@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { poppins } from "@/utils/fonts";
+import HeaderComponent from "@/components/HeaderComponent";
 
 export const metadata: Metadata = {
   title: "Four In A Row",
@@ -12,8 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html className={`${poppins.className}`} lang="en">
+      <body>
+        <HeaderComponent />
+        {children}
+      </body>
     </html>
   );
 }
