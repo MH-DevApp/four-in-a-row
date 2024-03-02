@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { poppins } from "@/utils/fonts";
 import HeaderComponent from "@/components/HeaderComponent";
+import FooterComponent from "@/components/FooterComponent";
 
 export const metadata: Metadata = {
   title: "Four In A Row",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <HeaderComponent />
         {children}
+        <FooterComponent />
       </body>
     </html>
   );
