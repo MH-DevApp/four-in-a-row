@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ButtonStartComponent from "@/home/ButtonStartComponent";
 
 const HomeComponent = () => {
   return (
@@ -71,10 +72,7 @@ const HomeComponent = () => {
         captivating game of wits!
       </p>
       <h3 className="md:text-lg">Good luck and have fun!</h3>
-
-      <Link className="btn-custom mt-4 px-12 py-4 text-base" href={"/game"}>
-        Start Game
-      </Link>
+      <ButtonStartComponent />
     </div>
   );
 };
