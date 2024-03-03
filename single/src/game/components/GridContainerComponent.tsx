@@ -21,7 +21,7 @@ const GridContainerComponent = ({
   row,
   rowIndex,
 }: GridContainerComponentProps) => {
-  return row.reverse().map((value, colIndex) => (
+  return row.map((value, colIndex) => (
     <div
       key={`${value}-${rowIndex}-${colIndex}`}
       className={getClassColumn(rowIndex, colIndex)}
