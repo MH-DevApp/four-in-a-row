@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <HeaderComponent />
-          {children}
+          <main className="container mx-auto flex-auto">{children}</main>
           <FooterComponent />
         </ThemeProvider>
       </body>
