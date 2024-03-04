@@ -22,7 +22,7 @@ const DashBoardComponent = ({
           key={player}
         >
           <span
-            className={`block h-5 w-5 rounded-full border-2 ${player === currentPlayer ? "bg-red-500" : "bg-yellow-500"}`}
+            className={`block h-5 w-5 rounded-full border-2 ${player === "Player 1" ? "bg-red-500" : "bg-yellow-500"}`}
           ></span>
           <span>{player}</span>
           <span className="p-2 text-lg font-medium">

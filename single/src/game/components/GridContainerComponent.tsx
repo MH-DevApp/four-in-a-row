@@ -1,14 +1,16 @@
+"use client";
+
 import { type ColorToken } from "@/game/store/useGameStore";
 import TokenComponent from "@/game/components/TokenComponent";
 
 type GridContainerComponentProps = {
-  row: ColorToken[];
+  row: { color: ColorToken; isPointerOver: boolean }[];
   rowIndex: number;
 };
 
-const getClassColumn = (rowIndex: number, colIndex: number) => {
+const getClassColumn = (rowIndex: number) => {
   let classColumn = "border-b-transparent";
-  if (rowIndex < 5) {
+  if (rowIndex > 0) {
     classColumn = "border-b-2 border-blue-600 dark:border-blue-400";
   }
 
@@ -24,9 +26,9 @@ const GridContainerComponent = ({
   return row.map((value, colIndex) => (
     <div
       key={`${value}-${rowIndex}-${colIndex}`}
-      className={getClassColumn(rowIndex, colIndex)}
+      className={getClassColumn(rowIndex)}
     >
-      <TokenComponent colorToken={value} />
+      <TokenComponent cell={[rowIndex, colIndex]} colorToken={value.color} />
     </div>
   ));
 };

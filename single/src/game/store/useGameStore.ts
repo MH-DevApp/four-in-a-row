@@ -6,19 +6,24 @@ export type Player = "Player 1" | "Player 2";
 const MAX_COUNTER_PLAYING = 42;
 
 type GameStore = {
-  gridBoard: ColorToken[][];
+  gridBoard: { color: ColorToken; isPointerOver: boolean }[][];
   counterPlaying: number;
   currentPlayer: Player;
+  handleCellSelector: (cell: number[], selected: boolean) => void;
+  addToken: (row: number, column: number) => void;
   score: { [key in Player]: number };
   init: () => void;
   reset: () => void;
 };
 
 export const useGameStore = create<GameStore>((set, get) => ({
-  gridBoard: Array.from({ length: 6 }, () => Array(7).fill(" ")),
+  gridBoard: Array.from({ length: 6 }, () =>
+    Array.from({ length: 7 }, () => ({ color: " ", isPointerOver: false })),
+  ),
   counterPlaying: 0,
   currentPlayer: "Player 1",
   score: { "Player 1": 0, "Player 2": 0 },
+  cellSelector: [],
   init: () => {
     get().reset();
     set({
@@ -27,9 +32,29 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
   reset: () => {
     set({
-      gridBoard: Array.from({ length: 6 }, () => Array(7).fill(" ")),
+      gridBoard: Array.from({ length: 6 }, () =>
+        Array.from({ length: 7 }, () => ({ color: " ", isPointerOver: false })),
+      ),
       counterPlaying: 0,
       currentPlayer: "Player 1",
+    });
+  },
+  handleCellSelector: (cell, value) => {
+    get().gridBoard[cell[0]][cell[1]].isPointerOver = value;
+    set({
+      gridBoard: [...get().gridBoard],
+    });
+  },
+  addToken: (row: number, column: number) => {
+    get().gridBoard[row][column] = {
+      color: get().currentPlayer === "Player 1" ? "R" : "Y",
+      isPointerOver: false,
+    };
+    set({
+      gridBoard: [...get().gridBoard],
+      currentPlayer:
+        get().currentPlayer === "Player 1" ? "Player 2" : "Player 1",
+      counterPlaying: get().counterPlaying + 1,
     });
   },
 }));
