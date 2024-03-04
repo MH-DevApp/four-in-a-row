@@ -5,6 +5,7 @@ import GridContainerComponent from "@/game/components/GridContainerComponent";
 import DashBoardComponent from "@/game/components/DashBoardComponent";
 import { useRouter } from "next/navigation";
 import GridSelectorComponent from "@/game/components/GridSelectorComponent";
+import AlertContainer from "@/game/alert/AlertContainer";
 
 const GameBoardComponent = () => {
   const gameStore = useGameStore();
@@ -35,6 +36,7 @@ const GameBoardComponent = () => {
       >
         Stop game
       </button>
+      <AlertContainer />
     </>
   );
 };

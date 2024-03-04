@@ -9,6 +9,7 @@ type GameStore = {
   gridBoard: { color: ColorToken; isPointerOver: boolean }[][];
   counterPlaying: number;
   currentPlayer: Player;
+  isTurn: boolean;
   handleCellSelector: (cell: number[], selected: boolean) => void;
   addToken: (row: number, column: number) => void;
   score: { [key in Player]: number };
@@ -24,6 +25,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   currentPlayer: "Player 1",
   score: { "Player 1": 0, "Player 2": 0 },
   cellSelector: [],
+  isTurn: false,
   init: () => {
     get().reset();
     set({
@@ -37,6 +39,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       ),
       counterPlaying: 0,
       currentPlayer: "Player 1",
+      isTurn: false,
     });
   },
   handleCellSelector: (cell, value) => {
@@ -52,9 +55,19 @@ export const useGameStore = create<GameStore>((set, get) => ({
     };
     set({
       gridBoard: [...get().gridBoard],
-      currentPlayer:
-        get().currentPlayer === "Player 1" ? "Player 2" : "Player 1",
       counterPlaying: get().counterPlaying + 1,
     });
+
+    if (get().counterPlaying < MAX_COUNTER_PLAYING) {
+      set({
+        currentPlayer:
+          get().currentPlayer === "Player 1" ? "Player 2" : "Player 1",
+        isTurn: true,
+      });
+    }
+
+    setTimeout(() => {
+      set({ isTurn: false });
+    }, 700);
   },
 }));
