@@ -1,10 +1,10 @@
 "use client";
 
-import { type ColorToken } from "@/game/store/useGameStore";
+import { Cell, type ColorToken } from "@/game/store/useGameStore";
 import TokenComponent from "@/game/components/TokenComponent";
 
 type GridContainerComponentProps = {
-  row: { color: ColorToken; isPointerOver: boolean }[];
+  row: Cell[];
   rowIndex: number;
 };
 
@@ -26,7 +26,7 @@ const GridContainerComponent = ({
   return row.map((value, colIndex) => (
     <div
       key={`${value}-${rowIndex}-${colIndex}`}
-      className={getClassColumn(rowIndex)}
+      className={`${getClassColumn(rowIndex)} ${value.isWin ? "animate-pulse bg-green-300 dark:bg-green-400" : ""}`}
     >
       <TokenComponent cell={[rowIndex, colIndex]} colorToken={value.color} />
     </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const AlertStartingComponent = () => {
   const gameStore = useGameStore();
-  const [counter, setCounter] = useState<number>(6);
+  const [counter, setCounter] = useState<number>(4);
   const [content, setContent] = useState("Ready ?");
   const startCounter = () => {
     setCounter((prev) => {

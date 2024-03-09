@@ -24,7 +24,7 @@ const DashBoardComponent = ({
           <span
             className={`block h-5 w-5 rounded-full border-2 ${player === "Player 1" ? "bg-red-500" : "bg-yellow-500"}`}
           ></span>
-          <span>{player}</span>
+          <span>{player}: </span>
           <span className="p-2 text-lg font-medium">
             {score[player as Player]}
           </span>

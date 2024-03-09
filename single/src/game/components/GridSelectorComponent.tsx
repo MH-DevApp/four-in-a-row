@@ -1,7 +1,7 @@
 "use client";
 
 import { useGameStore } from "@/game/store/useGameStore";
-import React from "react";
+import { PointerEvent } from "react";
 
 const GridSelectorComponent = () => {
   return (
@@ -28,7 +28,7 @@ const ColumnSelector = ({ index }: { index: number }) => {
     return -1;
   };
 
-  const handleSelector = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handleSelector = (event: PointerEvent<HTMLDivElement>) => {
     const cellEmpty = getEmptyCellInColumn();
     if (cellEmpty === -1) return;
 
@@ -56,7 +56,7 @@ const ColumnSelector = ({ index }: { index: number }) => {
     }
   };
 
-  const handleAddToken = (event: React.PointerEvent<HTMLDivElement>) => {
+  const handleAddToken = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse") {
       const cellEmpty = getEmptyCellInColumn();
       if (cellEmpty === -1) return;
