@@ -11,6 +11,11 @@ const GameBoardComponent = () => {
   const gameStore = useGameStore();
   const router = useRouter();
 
+  if (!gameStore.canPlaying) {
+    router.replace("/");
+    return null;
+  }
+
   return (
     <>
       <div className="relative grid grid-cols-7 grid-rows-6 rounded-2xl border border-blue-900 bg-blue-700 dark:bg-blue-500">

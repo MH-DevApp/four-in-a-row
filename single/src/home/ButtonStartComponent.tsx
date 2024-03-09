@@ -6,7 +6,9 @@ import { useGameStore } from "@/game/store/useGameStore";
 
 const ButtonStartComponent = () => {
   const router = useRouter();
-  const gameStore = useGameStore((state) => ({ init: state.init }));
+  const gameStore = useGameStore((state) => ({
+    init: state.init,
+  }));
 
   const handleClick = () => {
     gameStore.init();

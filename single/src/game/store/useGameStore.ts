@@ -145,6 +145,7 @@ type GameStore = {
   currentPlayer: Player;
   isTurn: boolean;
   isStarting: boolean;
+  canPlaying: boolean;
   isWinner: { value: boolean; showAlert: boolean };
   isDraw: boolean;
   toggleStarting: () => void;
@@ -163,6 +164,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   cellSelector: [],
   isTurn: false,
   isStarting: false,
+  canPlaying: false,
   isWinner: { value: false, showAlert: false },
   isDraw: false,
   toggleStarting: () => {
@@ -172,6 +174,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     get().reset();
     set({
       score: { "Player 1": 0, "Player 2": 0 },
+      canPlaying: true,
     });
   },
   reset: () => {
