@@ -146,6 +146,7 @@ type GameStore = {
   isTurn: boolean;
   isStarting: boolean;
   isWinner: { value: boolean; showAlert: boolean };
+  isDraw: boolean;
   toggleStarting: () => void;
   handleCellSelector: (cell: number[], selected: boolean) => void;
   addToken: (row: number, column: number) => void;
@@ -163,6 +164,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   isTurn: false,
   isStarting: false,
   isWinner: { value: false, showAlert: false },
+  isDraw: false,
   toggleStarting: () => {
     set({ isStarting: false });
   },
@@ -180,6 +182,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       isTurn: false,
       isStarting: true,
       isWinner: { value: false, showAlert: false },
+      isDraw: false,
     });
   },
   handleCellSelector: (cell, value) => {
@@ -250,7 +253,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
       setTimeout(() => {
         set({ isTurn: false });
-      }, 700);
+      }, 0);
+      return;
+    }
+
+    if (get().counterPlaying === MAX_COUNTER_PLAYING) {
+      set({
+        isDraw: true,
+      });
     }
   },
 }));
