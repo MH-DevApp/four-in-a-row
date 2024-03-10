@@ -256,7 +256,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
       setTimeout(() => {
         set({ isTurn: false });
-      }, 0);
+      }, 700);
       return;
     }
 

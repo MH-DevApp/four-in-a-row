@@ -29,7 +29,7 @@ const TokenComponent = ({ cell, colorToken }: TokenComponentProps) => {
   }
 
   return (
-    <div className="h-10 w-10 rounded-full border-2 border-gray-700 bg-slate-50 md:h-16 md:w-16"></div>
+    <div className="h-10 w-10 rounded-full border-2 border-gray-700 bg-blue-50 dark:bg-slate-50 md:h-16 md:w-16"></div>
   );
 };
 

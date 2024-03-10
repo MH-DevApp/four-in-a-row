@@ -12,7 +12,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
         <div
           className={themeContext.theme === "dark" ? themeContext.theme : ""}
         >
-          <div className="flex min-h-screen flex-col bg-slate-50 text-slate-700 dark:bg-slate-700 dark:text-slate-200">
+          <div className="flex min-h-screen flex-col bg-blue-100/80 text-slate-700 dark:bg-slate-700 dark:text-slate-200">
             {children}
           </div>
         </div>

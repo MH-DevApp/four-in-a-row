@@ -50,7 +50,7 @@ const GameBoardComponent = () => {
           .reverse()}
         <GridSelectorComponent />
       </div>
-      <hr className="my-6 w-full" />
+      <hr className="my-6 w-full border border-slate-900 dark:border-slate-50" />
       <DashBoardComponent
         currentPlayer={gameStore.currentPlayer}
         score={gameStore.score}
