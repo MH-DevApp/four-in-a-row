@@ -1,14 +1,11 @@
 import { useGameStore } from "@/game/store/useGameStore";
-import { useRouter } from "next/navigation";
 
 const AlertEndGameComponent = () => {
   const gameStore = useGameStore();
-  const router = useRouter();
   let content = "";
 
   const backHome = () => {
-    document.querySelector("body")?.classList.remove("overflow-hidden");
-    router.replace("/");
+    window.location.reload();
   };
 
   const playAgain = () => {

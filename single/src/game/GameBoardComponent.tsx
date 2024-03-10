@@ -61,7 +61,10 @@ const GameBoardComponent = () => {
       >
         Stop game
       </button>
-      <AlertContainer />
+      {(gameStore.isDraw ||
+        gameStore.isStarting ||
+        gameStore.isWinner.value ||
+        gameStore.isTurn) && <AlertContainer />}
     </>
   );
 };

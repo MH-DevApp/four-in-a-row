@@ -3,11 +3,17 @@ import AlertTurnComponent from "@/game/alert/AlertTurnComponent";
 import AlertStartingComponent from "@/game/alert/AlertStartingComponent";
 import AlertEndGameComponent from "@/game/alert/AlertEndGameComponent";
 import ConfettisComponent from "@/game/components/ConfettisComponent";
+import { useEffect } from "react";
 
 const AlertContainer = () => {
   const gameStore = useGameStore();
 
-  document.querySelector("body")?.classList.remove("overflow-hidden");
+  useEffect(() => {
+    document.querySelector("body")?.classList.add("overflow-hidden");
+    return () => {
+      document.querySelector("body")?.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   if (
     !gameStore.isTurn &&
@@ -18,11 +24,9 @@ const AlertContainer = () => {
     return null;
   }
 
-  document.querySelector("body")?.classList.add("overflow-hidden");
-
   if (gameStore.isWinner.value && !gameStore.isWinner.showAlert) {
     return (
-      <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center"></div>
+      <div className="absolute left-0 top-0 flex h-[100svh] w-full items-center justify-center"></div>
     );
   }
 
