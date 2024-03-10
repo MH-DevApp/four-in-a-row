@@ -6,13 +6,19 @@ import DashBoardComponent from "@/game/components/DashBoardComponent";
 import { useRouter } from "next/navigation";
 import GridSelectorComponent from "@/game/components/GridSelectorComponent";
 import AlertContainer from "@/game/alert/AlertContainer";
+import { useEffect } from "react";
 
 const GameBoardComponent = () => {
   const gameStore = useGameStore();
   const router = useRouter();
 
+  useEffect(() => {
+    if (!gameStore.canPlaying) {
+      router.replace("/");
+    }
+  }, [gameStore.canPlaying, router]);
+
   if (!gameStore.canPlaying) {
-    router.replace("/");
     return null;
   }
 
