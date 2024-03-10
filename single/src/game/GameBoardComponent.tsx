@@ -12,11 +12,25 @@ const GameBoardComponent = () => {
   const gameStore = useGameStore();
   const router = useRouter();
 
+  const handleClickStopGame = () => {
+    window.location.reload();
+  };
+
   useEffect(() => {
     if (!gameStore.canPlaying) {
       router.replace("/");
     }
   }, [gameStore.canPlaying, router]);
+
+  useEffect(() => {
+    const handleExitPage = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+    };
+    window.addEventListener("beforeunload", handleExitPage);
+    return () => {
+      window.removeEventListener("beforeunload", handleExitPage);
+    };
+  }, [router]);
 
   if (!gameStore.canPlaying) {
     return null;
@@ -42,7 +56,7 @@ const GameBoardComponent = () => {
         score={gameStore.score}
       />
       <button
-        onClick={() => router.replace("/")}
+        onClick={handleClickStopGame}
         className="btn-custom mt-8 md:text-base"
       >
         Stop game
